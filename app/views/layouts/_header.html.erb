@@ -1,7 +1,12 @@
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
-<%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
-<!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
-<%= stylesheet_link_tag 'custom', :media => 'screen' %>
+<%# encoding: utf-8 %>
+<header>
+  <%logo = image_tag("logo.png", :alt => "Application exemple", :class => "round") %>
+  <%= link_to logo, root_path %>
+  <nav class="round">
+    <ul>
+      <li><%= link_to "Accueil", root_path %></li>
+      <li><%= link_to "Aide", help_path %></li>
+      <li><%= link_to "Connexion", '#' %></li>
+    </ul>
+  </nav>
+</header>

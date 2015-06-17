@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
-  render_views
+   render_views
 
   before(:each) do
     @base_title = "Simple App du Tutoriel Ruby on Rails | "

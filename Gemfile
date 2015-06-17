@@ -48,7 +48,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec', '3.2.0'
+  gem 'rspec-rails', '3.2.3'
   gem 'autotest-standalone'
   gem 'autotest-rails'
 end
