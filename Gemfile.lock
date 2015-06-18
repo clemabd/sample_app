@@ -28,6 +28,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    annotate (2.6.10)
+      activerecord (>= 3.2, <= 4.3)
+      rake (~> 10.4)
     arel (5.0.1.20140414130214)
     autotest-rails (4.2.1)
       ZenTest (~> 4.5)
@@ -87,6 +90,10 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
     rspec-core (3.2.3)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.1)
@@ -147,6 +154,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  annotate (= 2.6.10)
   autotest-rails
   autotest-standalone
   capybara
@@ -154,6 +162,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.1.8)
+  rspec (= 3.2.0)
   rspec-rails (= 3.2.3)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
