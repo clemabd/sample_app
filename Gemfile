@@ -42,6 +42,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 gem 'webrat', '0.7.3'
 gem 'capybara'
+gem 'gravatar_image_tag', '1.0.0.pre2'
 
 group :development do
   gem 'rspec-rails', '3.2.3'
@@ -53,4 +54,5 @@ group :test do
   gem 'rspec', '3.2.0'
   gem 'autotest-standalone'
   gem 'autotest-rails'
+  gem 'factory_girl_rails', '1.0'
 end

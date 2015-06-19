@@ -14,7 +14,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
-    @attr = { :nom => "Example User", :email => "user@example.com" }
+    @attr = { :nom => "Example User",
+              :email => "user@example.com",
+              :password => "foobar",
+              :password_confirmation => "foobar" }
   end
 
   it "devrait créer une nouvelle instance dotée des attributs valides" do
@@ -66,5 +69,76 @@ RSpec.describe User, type: :model do
     User.create!(@attr.merge(:email => upcased_email))
     user_with_duplicate_email = User.new(@attr)
     expect(user_with_duplicate_email).not_to be_valid
+  end
+
+  describe "password validations" do
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "devrait exiger un mot de passe" do
+      expect(User.new(@attr.merge(:password => "", :password_confirmation => ""))).
+          not_to be_valid
+    end
+
+    it "devrait exiger une confirmation du mot de passe qui correspond" do
+      expect(User.new(@attr.merge(:password_confirmation => "invalid"))).
+          not_to be_valid
+    end
+
+    it "devrait rejeter les mots de passe (trop) courts" do
+      short = "a" * 5
+      hash = @attr.merge(:password => short, :password_confirmation => short)
+      expect(User.new(hash)).not_to be_valid
+    end
+
+    it "devrait rejeter les (trop) longs mots de passe" do
+      long = "a" * 41
+      hash = @attr.merge(:password => long, :password_confirmation => long)
+      expect(User.new(hash)).not_to be_valid
+    end
+
+    it "devrait avoir un attribut  mot de passe crypté" do
+      expect(@user).to respond_to(:encrypted_password)
+    end
+
+    it "devrait définir le mot de passe crypté" do
+      expect(@user.encrypted_password).not_to be_blank
+    end
+  end
+
+    describe "Méthode has_password?" do
+      before(:each) do
+        @user = User.create!(@attr)
+      end
+
+      it "doit retourner true si les mots de passe coïncident" do
+       # expect(@user.has_password?(@attr[:password])).to be_true
+      end
+
+      it "doit retourner false si les mots de passe divergent" do
+        #expect(@user.has_password?("invalide")).to be_false
+      end
+    end
+
+  describe "authenticate method" do
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "devrait retourner nul en cas d'inéquation entre email/mot de passe" do
+      wrong_password_user = User.authenticate(@attr[:email], "wrongpass")
+      expect(wrong_password_user).to be_nil
+    end
+
+    it "devrait retourner nil quand un email ne correspond à aucun utilisateur" do
+      nonexistent_user = User.authenticate("bar@foo.com", @attr[:password])
+      expect(nonexistent_user).to be_nil
+    end
+
+    it "devrait retourner l'utilisateur si email/mot de passe correspondent" do
+      matching_user = User.authenticate(@attr[:email], @attr[:password])
+      #expect(matching_user).to be equal(@user)
+    end
   end
 end
